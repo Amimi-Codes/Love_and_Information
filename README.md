@@ -17,4 +17,4 @@ For Queen's University's production, an algorithm was developed to generate a di
 - SVG:	Custom scalable visuals (as seen in Figure 1 – Love and Information Home Page)
 
 ## More Information
-[Love and Information Formal Report](Love and Information Report.pdf)
+[Love and Information Formal Project Report](https://github.com/Amimi-Codes/Love_and_Information/blob/main/Love%20and%20Information%20Report.pdf)
