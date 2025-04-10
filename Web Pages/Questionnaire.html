@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90s Style Personality Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Z's dialogue box -->
+        <div class="terminal-box">
+            <div id="dialogueText">
+                <div class="dialogue-line">SYSTEM INITIALIZING...</div>
+                <div class="dialogue-line">Connecting to network...</div>
+                <div class="dialogue-line">Z: Testing... Testing... Ah, there you are.</div>
+                <div class="dialogue-line">Z: I've heard of your interest in "Love and Information"... You must be looking to purchase a ticket.</div>
+                <div class="dialogue-line">Z: Before that, I have a few questions to ask you...</div>
+            </div>
+            <div id="startQuiz" class="dialogue-line">
+                <button onclick="document.querySelector('.terminal-box').style.display='none'; document.getElementById('quizContent').style.display='block';" class="terminal-btn">Click to Continue</button>
+            </div>
+        </div>
+
+        <!-- Quiz content (initially hidden) -->
+        <div id="quizContent" style="display: none;">
+            <h1>Collecting Information...</h1>
+            
+            <!-- Question 1 -->
+            <div class="quiz-box" id="question1">
+                <h2>ONE</h2>
+                <p>What date do you plan to watch the play?</p>
+                <form id="quizForm1">
+                    <div class="date-container">
+                        <select id="playDate" name="question1" required>
+                            <option value="" disabled selected>Select a date...</option>
+                            <option value="2025-03-05">March 5</option>
+                            <option value="2025-03-06">March 6</option>
+                            <option value="2025-03-07">March 7</option>
+                            <option value="2025-03-08">March 8</option>
+                            <option value="2025-03-09">March 9</option>
+                            <option value="2025-03-10">March 10</option>
+                            <option value="2025-03-11">March 11</option>
+                            <option value="2025-03-12">March 12</option>
+                            <option value="2025-03-13">March 13</option>
+                            <option value="2025-03-14">March 14</option>
+                            <option value="2025-03-15">March 15</option>
+                            <option value="2025-03-16">March 16</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-box" id="question2" style="display: none;">
+                <h2>TWO</h2>
+                <p>I've got a secret... Can you keep it?</p>
+                <form id="quizForm2">
+                    <div class="option">
+                        <input type="radio" id="q2choice1" name="question2" value="hear_secret">
+                        <label for="q2choice1">Yes, I promise I won't tell</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2choice2" name="question2" value="insist">
+                        <label for="q2choice2">You should tell me the secret!</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2choice3" name="question2" value="dont_tell">
+                        <label for="q2choice3">No. Don't tell me</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-box" id="question3" style="display: none;">
+                <h2>THREE</h2>
+                <p>Sleep helps rest our minds and bodies. How did you sleep last night?</p>
+                <form id="quizForm3">
+                    <div class="option">
+                        <input type="radio" id="q3choice1" name="question3" value="great_sleep">
+                        <label for="q3choice1">I had a great sleep!</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3choice2" name="question3" value="bad_sleep">
+                        <label for="q3choice2">Unfortunately, I didn't sleep well</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3choice3" name="question3" value="terrible_sleep">
+                        <label for="q3choice3">… It was terrible.</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-box" id="question4" style="display: none;">
+                <h2>FOUR</h2>
+                <p>When you watch TV, what do you turn the channel to?</p>
+                <form id="quizForm4">
+                    <div class="option">
+                        <input type="radio" id="q4choice1" name="question4" value="news">
+                        <label for="q4choice1">I like to watch the News to stay informed about the world</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4choice2" name="question4" value="sitcoms">
+                        <label for="q4choice2">Sitcoms, duh. What else?</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4choice3" name="question4" value="no_cable">
+                        <label for="q4choice3">TV, like… Cable? That was so 2010</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-box" id="question5" style="display: none;">
+                <h2>FIVE</h2>
+                <p>I rarely remember my dreams. How often do you dream?</p>
+                <form id="quizForm5">
+                    <div class="option">
+                        <input type="radio" id="q5choice1" name="question5" value="creepy">
+                        <label for="q5choice1">Uh, that's a creepy question</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5choice2" name="question5" value="cant_track">
+                        <label for="q5choice2">I can't keep track these days</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5choice3" name="question5" value="dream_journal">
+                        <label for="q5choice3">Very frequently. I keep a dream journal</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-box" id="question6" style="display: none;">
+                <h2>SIX</h2>
+                <p>Looks like my schedule just opened up. Would you like to go to dinner tonight?</p>
+                <form id="quizForm6">
+                    <div class="option">
+                        <input type="radio" id="q6choice1" name="question6" value="taken">
+                        <label for="q6choice1">I'm taken, thank you very much</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6choice2" name="question6" value="yes_pay">
+                        <label for="q6choice2">Sure, but you're paying!</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6choice3" name="question6" value="dont_know">
+                        <label for="q6choice3">What? I don't even know you</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-box" id="question7" style="display: none;">
+                <h2>SEVEN</h2>
+                <p>The average adult makes over 35,000 choices per day. What's your favourite way to make a decision?</p>
+                <form id="quizForm7">
+                    <div class="option">
+                        <input type="radio" id="q7choice1" name="question7" value="coin_flip">
+                        <label for="q7choice1">I like to flip a coin</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7choice2" name="question7" value="no_decisions">
+                        <label for="q7choice2">I rarely make my own decisions</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7choice3" name="question7" value="yolo">
+                        <label for="q7choice3">#YOLO #weball (and I stand by these sentiments)</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-box" id="question8" style="display: none;">
+                <h2>EIGHT</h2>
+                <p>You're at the grocery store and spot your ex. What do you do?</p>
+                <form id="quizForm8">
+                    <div class="option">
+                        <input type="radio" id="q8choice1" name="question8" value="cry">
+                        <label for="q8choice1">Cry myself a river in the middle of the aisle (totally not over them)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8choice2" name="question8" value="run">
+                        <label for="q8choice2">Run in the opposite direction. And fast.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8choice3" name="question8" value="sweater">
+                        <label for="q8choice3">Ask them for my sweater back.</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-box" id="question9" style="display: none;">
+                <h2>NINE</h2>
+                <p>I've got a plan. How can I share this message with you?</p>
+                <form id="quizForm9">
+                    <div class="option">
+                        <input type="radio" id="q9choice1" name="question9" value="pigeon">
+                        <label for="q9choice1">Send me a carrier pigeon!</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9choice2" name="question9" value="dm">
+                        <label for="q9choice2">Just DM me, or something.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9choice3" name="question9" value="no_talk">
+                        <label for="q9choice3">Please don't talk to me.</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-box" id="question10" style="display: none;">
+                <h2>TEN</h2>
+                <p>Do you think it's fate that you're on this website?</p>
+                <form id="quizForm10">
+                    <div class="option">
+                        <input type="radio" id="q10choice1" name="question10" value="tickets">
+                        <label for="q10choice1">Please just get me my tickets!</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10choice2" name="question10" value="peer_pressure">
+                        <label for="q10choice2">No. I got peer-pressured into buying a ticket.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10choice3" name="question10" value="theatre_fan">
+                        <label for="q10choice3">Absolutely! Theatre's my jam.</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Choice</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

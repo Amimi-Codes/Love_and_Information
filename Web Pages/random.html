@@ -1,0 +1,171 @@
+<!-- random.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love and Information Scene Randomizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #lastUpdated {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+
+        #sceneList {
+            margin: 20px 0;
+        }
+
+        .scene {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .scene:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .download-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background-color: #34495e;
+        }
+
+        .update-info {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Love and Information</h1>
+        <div class="update-info">Scene order updates daily at 4:00 PM EST</div>
+        <div id="lastUpdated"></div>
+        <div id="sceneList"></div>
+        <button class="download-btn" onclick="downloadSceneOrder()">Download Scene Order</button>
+    </div>
+
+    <script>
+        const scenes = [
+            "Secret", "Fan", "Census", "Relationship", "Remote", "Censor", 
+            "Facts", "Lab", "Sleep", "Violence", "Star", "Piano", 
+            "Climate", "Memory", "Garden", "Message", "Wedding", "Dinner",
+            "Child", "Sex", "God", "Love", "Bird", "Possibility", 
+            "Maths", "Mother", "Revolution", "School", "Death", "Terminal",
+            "Future", "Power", "Date", "Wife", "Family", "War", 
+            "Identity", "Library", "Virtual", "History", "Letter", "Spies",
+            "Hospital", "Phone", "Trial", "Language", "Dream", "News",
+            "Time", "Faith", "Beauty", "Decision", "Birth", "Generation",
+            "Politics", "Silence", "Mind", "Choice"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function updateSceneOrder() {
+            const now = new Date();
+            const lastUpdate = localStorage.getItem('lastUpdate');
+            const storedScenes = localStorage.getItem('sceneOrder');
+
+            const targetHour = 16; // 4pm
+            const needsUpdate = !lastUpdate || 
+                              new Date(lastUpdate).getDate() !== now.getDate() ||
+                              (now.getHours() >= targetHour && new Date(lastUpdate).getHours() < targetHour);
+
+            let currentOrder;
+            if (needsUpdate && now.getHours() >= targetHour) {
+                currentOrder = shuffleArray([...scenes]);
+                localStorage.setItem('sceneOrder', JSON.stringify(currentOrder));
+                localStorage.setItem('lastUpdate', now.toString());
+            } else if (storedScenes) {
+                currentOrder = JSON.parse(storedScenes);
+            } else {
+                currentOrder = shuffleArray([...scenes]);
+                localStorage.setItem('sceneOrder', JSON.stringify(currentOrder));
+                localStorage.setItem('lastUpdate', now.toString());
+            }
+
+            // Display scenes
+            const sceneList = document.getElementById('sceneList');
+            sceneList.innerHTML = currentOrder.map((scene, index) => 
+                `<div class="scene">${ index + 1}. ${scene}</div>`
+            ).join('');
+
+            // Update last updated time
+            const lastUpdateDisplay = document.getElementById('lastUpdated');
+            lastUpdateDisplay.innerHTML = `Last Updated: ${ new Date(localStorage.getItem('lastUpdate')).toLocaleString()}`;
+        }
+
+        function downloadSceneOrder() {
+            const currentOrder = JSON.parse(localStorage.getItem('sceneOrder'));
+            const lastUpdate = new Date(localStorage.getItem('lastUpdate'));
+            
+            let content = "Love and Information - Scene Order\n";
+            content += `Generated on: ${ lastUpdate.toLocaleString()}\n\n`;
+            
+            currentOrder.forEach((scene, index) => {
+                content += `${ index + 1}. ${scene}\n`;
+            });
+
+            const blob = new Blob([content], {  type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `LoveAndInformation_SceneOrder_${ lastUpdate.toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Initial update
+        updateSceneOrder();
+
+        // Check for updates every minute
+        setInterval(updateSceneOrder, 60000);
+    </script>
+</body>
+</html>

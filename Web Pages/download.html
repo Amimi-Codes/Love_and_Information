@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love and Information - Randomizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Core styles and variables */
+        :root {
+            --primary-red: #ef6596;
+            --primary-blue: #4ecdc4;
+            --background: #151515;
+            --text-light: #ffffff;
+            --text-dark: #2e2e2e;
+            --container-bg: #ebc041;
+            --grid-color: #ffffff33;
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'VT323', monospace; 
+            background-color: var(--background);
+            color: var(--text-light);
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* Container and its decorative elements */
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: var(--container-bg);
+            padding: 5px 30px 30px;
+            z-index: 1;
+            color: var(--text-dark);
+        }
+
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container::before {
+            background-color: var(--primary-red);
+            transform: translate(-20px, -10px);
+        }
+
+        .container::after {
+            background-color: var(--primary-blue);
+            transform: translate(-40px, -20px);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Status bar styles */
+        .status-bar {
+            display: none;
+        }
+
+        #lastUpdated, 
+        .update-info {
+            font-size: 1.1em;
+        }
+
+        /* Scene list styles */
+        #sceneList {
+            margin: 20px 0;
+        }
+
+        .scene {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-bottom: 2px solid var(--primary-red);
+            display: flex;
+            align-items: center;
+        }
+
+        .scene-number {
+            margin-right: 20px;
+            min-width: 30px;
+            color: var(--text-light);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Act styles */
+        .act-header {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--text-light);
+            padding: 20px 0 10px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+        }
+        
+        .act-container {
+            border-left: 3px solid var(--primary-red);
+            margin-left: 10px;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .depression-scene {
+            color: var(--text-light);
+        }
+
+        /* Download button styles */
+        .download-btn {
+            display: none;
+        }
+
+        .z-dialogue {
+            font-family: 'Press Start 2P', cursive;
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            color: #00ff00;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            background-color: var(--text-dark);
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.8;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            justify-self: center;
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+    
+        .action-btn {
+            font-family: 'Press Start 2P', cursive;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+    
+        .print-btn {
+            background-color: var(--container-bg);
+            color: var(--text-light);
+        }
+    
+        .pie-btn {
+            background-color: var(--primary-red);
+            color: var(--text-light);
+        }
+    
+        .action-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .title-container {
+            padding: 15px 30px !important;
+        }
+        
+
+        @media print {
+            /* Remove grid background when printing */
+            body {
+                background: none !important;
+                margin: 0;
+                padding: 0;
+            }
+        
+            /* Remove header and footer and set page size */
+            @page {
+                margin: 0.25in;
+                size: portrait;
+            }
+        
+            /* Keep Z dialogue styling with dark background */
+            .z-dialogue {
+                margin: 20px auto 40px auto !important;
+                background-color: var(--text-dark) !important;
+                color: #00ff00 !important;
+                border: 2px solid #00ff00 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        
+            /* Style for each act's container */
+            .container {
+                margin: 0 auto !important;
+                background-color: var(--container-bg) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        
+            /* Keep container effects visible */
+            .container::before,
+            .container::after {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        
+            /* First act container special handling */
+            .act-1-container {
+                page-break-after: always;
+            }
+        
+            /* Force each act 2-7 onto new pages */
+            .act-2-container,
+            .act-3-container,
+            .act-4-container,
+            .act-5-container,
+            .act-6-container,
+            .act-7-container {
+                display: block;
+                page-break-before: always;
+                page-break-after: always;
+                break-before: page;
+                break-after: page;
+                position: relative;
+                margin-top: 0.25in !important;
+            }
+        
+            /* Hide buttons */
+            .button-container,
+            .download-btn {
+                display: none;
+            }
+        
+            /* Adjust title spacing */
+            h1 {
+                white-space: nowrap;
+                font-size: 1.5em !important;
+                margin: 15px 0 !important;
+                color: var(--text-light) !important;
+            }
+        
+            /* Scene list adjustments */
+            #sceneList {
+                margin: 0 !important;
+            }
+        
+            /* Keep original text colors */
+            .scene-number {
+                color: var(--text-light) !important;
+            }
+        
+            .depression-scene {
+                color: var(--text-light) !important;
+            }
+        
+            .act-header {
+                color: var(--text-light) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="z-dialogue">
+        Z: We meet again! Your answers have shaped tonight's reality... are you ready to witness it?
+    </div>
+    
+    <!-- Buttons container -->
+    <div class="button-container">
+        <button class="action-btn print-btn" onclick="window.print()">Print Scene Order</button>
+        <button class="action-btn pie-btn" onclick="showPieChart()">Pie Chart</button>
+    </div>
+    
+    <!-- Scene list container -->
+    <div id="sceneList"></div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            UPDATE_INTERVAL: 60000, // 1 minute in milliseconds
+            ACTS_WITH_DEPRESSION: [1, 2, 5, 6, 7],
+            SCENES_PER_ACT: {
+                DEFAULT: 7,
+                WITH_DEPRESSION: 9
+            },
+            TOTAL_ACTS: 7
+        };
+    
+        // Fetches and displays the scene order from the server
+        function updateSceneOrder() {
+            fetch('scene_handler.php')
+                .then(response => response.json())
+                .then(handleSceneData)
+                .catch(handleError);
+        }
+    
+        // Handles the scene data received from the server
+        function handleSceneData(data) {
+            if (!isValidData(data)) return;
+    
+            const sceneHTML = generateSceneHTML(data.order);
+            document.getElementById('sceneList').innerHTML = sceneHTML;
+            updateTimestamp(data.last_update);
+        }
+    
+        // Validates the received data
+        function isValidData(data) {
+            if (!data.order || !Array.isArray(data.order)) {
+                console.error('Invalid order data received');
+                return false;
+            }
+            return true;
+        }
+    
+        // Generates HTML for all scenes
+        function generateSceneHTML(currentOrder) {
+            let sceneHTML = '';
+            let currentIndex = 0;
+            
+            const scenesPerAct = {
+                1: 9, 2: 8, 3: 8, 4: 9, 5: 8, 6: 8, 7: 10
+            };
+        
+            // Generate HTML for each act
+            for (let actNumber = 1; actNumber <= 7; actNumber++) {
+                const actScenes = currentOrder.slice(currentIndex, currentIndex + scenesPerAct[actNumber]);
+                
+                const startNumber = actNumber === 1 ? 1 : 
+                    Array.from({  length: actNumber - 1}, (_, i) => scenesPerAct[i + 1])
+                        .reduce((sum, count) => sum + count, 1);
+                
+                sceneHTML += `
+                    <div class="container act-${ actNumber}-container">
+                        ${ actNumber === 1 ? '<h1>Love and Information</h1><h1>Scene Ordering</h1>' : ''}
+                        ${ actNumber === 1 ? '<button class="download-btn" onclick="downloadSceneOrder()">Download Sequence</button>' : ''}
+                        <div class="act-header">Act ${ actNumber}</div>
+                        <div class="act-container">
+                            ${actScenes.map((scene, index) => `
+                                <div class="scene${ scene.includes('Depression') ? ' depression-scene' : ''}">
+                                    <span class="scene-number">${ (startNumber + index).toString().padStart(2, '0')}</span>
+                                    ${ scene}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                currentIndex += scenesPerAct[actNumber];
+            }
+        
+            return sceneHTML;
+        }
+    
+        // Generates HTML for a single act
+        function generateActHTML(actNumber, currentOrder, startIndex, startNumber) {
+            const scenesInAct = getSceneCount(actNumber);
+            const actScenes = currentOrder.slice(startIndex, startIndex + scenesInAct);
+            
+            return `
+                <div class="act-header">Act ${ actNumber}</div>
+                <div class="act-container">
+                    ${ generateScenesHTML(actScenes, startNumber)}
+                </div>
+            `;
+        }
+    
+        // Generates HTML for scenes within an act
+        function generateScenesHTML(scenes, startNumber) {
+            return scenes.map((scene, index) => `
+                <div class="scene${ scene.includes('Depression') ? ' depression-scene' : ''}">
+                    <span class="scene-number">${ (startNumber + index).toString().padStart(2, '0')}</span>
+                    ${ scene}
+                </div>
+            `).join('');
+        }
+    
+        // Generates HTML for the Facts scene
+        function generateFactsHTML(number) {
+            return `
+                <div class="scene">
+                    <span class="scene-number">${ number.toString().padStart(2, '0')}</span>
+                    Facts
+                </div>
+            `;
+        }
+    
+        // Gets the number of scenes for a specific act
+        function getSceneCount(actNumber) {
+            return CONFIG.ACTS_WITH_DEPRESSION.includes(actNumber) 
+                ? CONFIG.SCENES_PER_ACT.WITH_DEPRESSION 
+                : CONFIG.SCENES_PER_ACT.DEFAULT;
+        }
+    
+        // Updates the last updated timestamp
+        function updateTimestamp(timestamp) {
+            if (!timestamp) return;
+            
+            const date = new Date(timestamp);
+            date.setHours(date.getHours() - 5); // Adjust for EST
+            const updateTime = date.toLocaleString('en-US', {  timeZone: 'America/New_York' });
+            document.getElementById('lastUpdated').textContent = `Last Update: ${ updateTime}`;
+        }
+    
+        // Handles errors in fetching scene data
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('sceneList').innerHTML = 'Error loading scenes. Please refresh the page.';
+        }
+    
+        // Downloads the current scene order by reading from the HTML
+        function downloadSceneOrder() {
+            // Get timestamp from the displayed last update time
+            const displayedTime = document.getElementById('lastUpdated').textContent
+                .replace('Last Update: ', '');
+            const timestamp = new Date(displayedTime);
+    
+            // Generate file content from displayed scenes
+            const content = generateFileContentFromHTML();
+            const fileName = `LoveAndInformation_SceneOrder_${ formatDate(timestamp)}.txt`;
+            
+            // Create and trigger download
+            const blob = new Blob([content], {  type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    
+        // Generates file content by reading from the HTML
+        function generateFileContentFromHTML() {
+            const lastUpdate = document.getElementById('lastUpdated').textContent
+                .replace('Last Update: ', '');
+            
+            let content = `LOVE AND INFORMATION - SCENE ORDER\n`;
+            content += `Generated: ${ lastUpdate}\n`;
+            content += `================================\n\n`;
+    
+            // Get all acts and scenes
+            const acts = document.querySelectorAll('.act-header, .act-container');
+            let currentAct = '';
+    
+            acts.forEach(element => {
+                if (element.classList.contains('act-header')) {
+                    // Start new act
+                    currentAct = element.textContent;
+                    content += `${ currentAct}\n`;
+                    content += `${ '='.repeat(currentAct.length)}\n\n`;
+                } else {
+                    // Add scenes from this act
+                    const scenes = element.querySelectorAll('.scene');
+                    scenes.forEach(scene => {
+                        const number = scene.querySelector('.scene-number').textContent;
+                        const sceneName = scene.textContent.replace(number, '').trim();
+                        content += `${ number}. ${sceneName}\n`;
+                    });
+                    content += '\n';
+                }
+            });
+    
+            return content;
+        }
+    
+        // Formats date for filename
+        function formatDate(date) {
+            return `${ date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+    
+        // Initialize
+        updateSceneOrder();
+    </script>
+</body>
+<script>
+    function showPieChart() {
+        // Open pie chart in a new window and print it
+        const pieWindow = window.open('https://loveandinfo.com/pie.php', 'PieChart');
+    }
+</script>
+</html>

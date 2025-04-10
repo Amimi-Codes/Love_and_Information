@@ -1,0 +1,136 @@
+body {
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-image: linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #00ff00;
+    text-shadow: 2px 2px #003300;
+    margin-bottom: 40px;
+}
+
+.quiz-box {
+    background-color: #000;
+    border: 2px solid #00ff00;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.option {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: #003300;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+label {
+    cursor: pointer;
+}
+
+.submit-btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 15px;
+    background-color: #000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.landing-content {
+    text-align: center;
+    padding: 40px;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.start-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.start-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.dialogue-box {
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 3px solid #fff;
+    padding: 20px;
+    margin: 20px;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+    animation: fadeIn 1s ease-in;
+}
+
+.dialogue-box::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 1px solid #fff;
+    pointer-events: none;
+}
+
+.dialogue-text {
+    opacity: 0;
+    animation: typewriter 2s steps(60) 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {  opacity: 0; }
+    to {  opacity: 1; }
+}
+
+@keyframes typewriter {
+    from {  opacity: 0; }
+    to {  opacity: 1; }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Cinema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .central-graphic {
+            width: 80%;
+            height: auto;
+        }
+
+        .columns-container {
+            display: flex;
+            gap: 20px;
+            width: 80%;
+        }
+
+        .column {
+            width: 50%;
+        }
+
+        .column img {
+            width: 100%;
+            height: auto;
+        }
+
+        .showtimes {
+            display: none;
+            width: 80%;
+        }
+
+        .tickets-container {
+            width: 80%;
+            text-align: center;
+        }
+
+        .tickets-container img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .columns-container {
+                display: none;
+            }
+
+            .showtimes {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top graphic -->
+        <img src="L&I-WebAssets/Central_graphic.svg" alt="Central Cinema" class="central-graphic">
+        
+        <!-- Columns (hidden on small screens) -->
+        <div class="columns-container">
+            <div class="column">
+                <img src="L&I-WebAssets/Column1.svg" alt="Column 1">
+            </div>
+            <div class="column">
+                <img src="L&I-WebAssets/Column2.svg" alt="Column 2">
+            </div>
+        </div>
+
+        <!-- Showtimes (visible only on small screens) -->
+        <img src="L&I-WebAssets/Showtimes.svg" alt="Showtimes" class="showtimes">
+        
+        <!-- Tickets in its own row -->
+        <div class="tickets-container">
+            <img 
+                src="L&I-WebAssets/Tickets.svg" 
+                alt="Tickets" 
+                onmouseover="this.src='L&I-WebAssets/TicketYellow.svg'" 
+                onmouseout="this.src='L&I-WebAssets/Tickets.svg'"
+            >
+        </div>
+    </div>
+
+    <script>
+        function checkWidth() {
+            const columnsContainer = document.querySelector('.columns-container');
+            const showtimes = document.querySelector('.showtimes');
+            
+            if (window.innerWidth <= 1024) {
+                columnsContainer.style.display = 'none';
+                showtimes.style.display = 'block';
+            } else {
+                columnsContainer.style.display = 'flex';
+                showtimes.style.display = 'none';
+            }
+        }
+
+        window.addEventListener('load', checkWidth);
+        window.addEventListener('resize', checkWidth);
+    </script>
+</body>
+</html>
